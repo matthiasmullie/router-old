@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Match usage:
+    :var = variable value; the assigned value can be used as backreference in
+           controller or action and the assigned value will be available as
+           a variable in the controller/action. Letters only.
+    %    = wildcard spanning over 1 url-part.
+    *    = wildcard spanning over multiple url-parts.
+    ()   = indicates a part of the url is optional.
+
+    Matching priority:
+    1: Matching route that has both a specific controller & action.
+    2: Matching route that has a full controller name & a variable action name.
+    3: Matching route that has a variable controller name & a full action name.
+    4: Matching route with both a variable controller name & action name.
+    In case of equal routes, the first occurence will be used.
+
+    Controller/action are either a full controller name or 1 backreference.
+    Valid example:
+        controller="core" action=":action"
+    Invalid example:
+        controller="co:one" action=":two:three"
+
+    Match should only start from the application root. If your application is in
+    a subfolder, do not include the subfolder location in the match.
+-->
+<routes>
+    <!-- maps the core-controller & index-action for the homepage -->
+    <route match="/" controller="core" action="index"/>
+
+    <!-- if there's only 1 url-part, map it to the index-action of the controller that corresponds to the url-part -->
+    <route match="/:controller(/)" controller=":controller" action="index"/>
+
+    <!-- if there are 2 url-parts, map them to the action that corresponds with the 2nd url-part, of the controller that corresponds to the 1st url-part -->
+    <route match="/:controller/:action(/)" controller=":controller" action=":action"/>
+
+    <!-- if there more than 2 url-parts, map them to the action that corresponds with the 2nd url-part, of the controller that corresponds to the 1st url-part and don't bother that there are additional url-parts -->
+    <route match="/:controller/:action/*(/)" controller=":controller" action=":action"/>
+</routes>
