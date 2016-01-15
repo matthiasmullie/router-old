@@ -17,4 +17,4 @@
     echo "<a href='$url'>Link</a>";
 
 ## License
-Ogone is [MIT](http://opensource.org/licenses/MIT) licensed.
+Router is [MIT](http://opensource.org/licenses/MIT) licensed.
